@@ -1,11 +1,32 @@
-import { Home, Lock, X } from "lucide-react";
+import {
+  AlertCircle,
+  AlertOctagon,
+  AlertTriangle,
+  Briefcase,
+  ChevronDown,
+  ChevronUp,
+  Home,
+  Layers3,
+  Lock,
+  Search,
+  Settings,
+  ShieldAlert,
+  User,
+  Users,
+  X,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../app/store";
 import { setSidebarCollapsed } from "../../features/globalSlice";
+import { useState } from "react";
 
 export default function Sidebar() {
+  // local states
+  const [showProjects, setShowProjects] = useState(false);
+  const [showPriority, setShowPriority] = useState(false);
+
   //import sidebar collapsed value from the state.
   const sidebarCollapsed = useSelector(
     (state: RootState) => state.global.sidebarCollapsed,
@@ -28,7 +49,7 @@ export default function Sidebar() {
               className="py-3"
               onClick={() => dispatch(setSidebarCollapsed(!sidebarCollapsed))}
             >
-              <X />
+              <X className="text-gray-800 dark:text-white h-6 w-6" />
             </button>
           )}
         </div>
@@ -51,7 +72,59 @@ export default function Sidebar() {
         {/* NAVLINKS */}
         <nav className="w-full z-10">
           <SideBarLinks icon={Home} label="Home" href="/" />
+          <SideBarLinks icon={Briefcase} label="Timeline" href="/timeline" />
+          <SideBarLinks icon={Search} label="Search" href="/search" />
+          <SideBarLinks icon={Settings} label="Settings" href="/settings" />
+          <SideBarLinks icon={User} label="Users" href="/users" />
+          <SideBarLinks icon={Users} label="Teams" href="/teams" />
         </nav>
+
+        {/* PROJECTS SECTION */}
+        <button
+          onClick={() => setShowProjects((prev) => !prev)}
+          className="flex items-center text-gray-500 w-full justify-between px-8 py-3"
+        >
+          <span>Projects</span>
+          {/* icon */}
+          {showProjects ? (
+            <ChevronUp className="h-5 w-5" />
+          ) : (
+            <ChevronDown className="w-5 h-5" />
+          )}
+        </button>
+
+        {/* PRIORITIES LINKS SECTION */}
+        <button
+          onClick={() => setShowPriority((prev) => !prev)}
+          className="flex items-center text-gray-500 w-full justify-between px-8 py-3"
+        >
+          <span>Priority</span>
+          {/* icon */}
+          {showPriority ? (
+            <ChevronUp className="h-5 w-5" />
+          ) : (
+            <ChevronDown className="w-5 h-5" />
+          )}
+        </button>
+
+        {/* project items */}
+        <div
+          className={`transition-all duration-300 ease-in-out  ${showPriority ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+        >
+          <SideBarLinks
+            icon={AlertCircle}
+            label="Urgent"
+            href="/priority/urgent"
+          />
+          <SideBarLinks icon={ShieldAlert} label="Home" href="/priority/high" />
+          <SideBarLinks
+            icon={AlertTriangle}
+            label="Home"
+            href="/priority/medium"
+          />
+          <SideBarLinks icon={AlertOctagon} label="Home" href="/priority/low" />
+          <SideBarLinks icon={Layers3} label="Home" href="/priority/backlog" />
+        </div>
       </div>
 
       {/* LOGOUT-BOTTOM SECTION */}
@@ -87,21 +160,18 @@ const SideBarLinks = ({
   return (
     <Link to={href} className="w-full">
       <div
-        className={`relative flex items-center gap-3 cursor-pointer transition-colors duration-300 hover:bg-gray-100 hovor:dark:bg-gray-700
+        className={`relative flex items-center py-3 px-8 justify-start gap-3 cursor-pointer transition-colors duration-300 group hover:bg-gray-100 hovor:dark:bg-gray-700
       ${isActive ? "bg-gray-100 text-white dark:bg-gray-600" : ""}`}
       >
         {" "}
         {/* Line */}
         {isActive ? (
-          <div className="absolute top-0 left-0 h-[100%] bg-blue-400 w-[5px]" />
+          <div className="absolute top-0 left-0 h-[100%] bg-blue-400 w-[5px] " />
         ) : null}
         {/* icon */}
-        <Icon className="h-6 w-6 text-gray-800 dark:text-gray-100" />
+        <Icon className="h-6 w-6 text-gray-800 dark:text-gray-100  group-hover:dark:text-gray-800" />
         {/* label */}
-        <span
-          className="font-medium text-gray-800 dark:text-gray-100
-        "
-        >
+        <span className="font-medium text-gray-800 dark:text-gray-100  group-hover:dark:text-gray-800">
           {label}
         </span>
       </div>

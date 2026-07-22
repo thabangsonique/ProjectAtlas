@@ -21,7 +21,7 @@ export default function Navbar() {
           <button
             onClick={() => dispatch(setSidebarCollapsed(!sidebarCollapsed))}
           >
-            <MenuIcon />
+            <MenuIcon className="h-6 w-6 text-gray-800 dark:text-white" />
           </button>
         ) : null}
 
@@ -37,7 +37,7 @@ export default function Navbar() {
       </div>
 
       {/* right side */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
         {/* darkmode icon button */}
         <button
           onClick={() => dispatch(setDarkMode(!darkMode))}
