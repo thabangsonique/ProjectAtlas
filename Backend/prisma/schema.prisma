@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+ 
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// MODELS
+model User {
+  userId Int @id @default(autoincrement())
+  cognitoId String @unique
+  username String
+  profilePictureUrl String? //optional
+  teamId Int? //optional
+
+  //relational tables
+  attachments Attachment[] //attachments added by this user
+  comments Comment[]  //comments made by the user
+  authoredTask Task[] @relation("TaskAuthor") //asks that this user assigned
+  assignedTask Task[] @relation("TaskAssignee") //tasks that where assigned to this user
+  taskAssignment TaskAssignment[] 
+  team  Team? @relation(fields: [teamId], references: [id]) //connects the teamId field in the user table with as the Id from team table
+
+}
+
+model Team {
+id Int @id @default(autoincrement())
+teamName String
+productOwnerUserId Int?
+projectManagerId Int?
+
+//relationships
+projectTeams ProjectTeam[] //a list of projects assigned to this team, coming from the "projectTeam" table.
+user User[] //a list(array) of users belonging to this team
+
+}
+
+model Project {
+  id Int @id @default(autoincrement())
+  name String
+  description String?
+startDate DateTime?
+endDate DateTime?
+
+//relationships
+projectTeams ProjectTeam[] //a list of teams that are working on this project.
+task Task[] //tasks created for this project.
+}
+
+//junction table connecting projects to teams.
+model ProjectTeam {
+  id Int @id @default(autoincrement())
+  teamId Int // team that is assign a certain project or projects.
+  projectId Int //project assigned to a particular team.
+
+  // relational tables
+  team Team @relation(fields: [teamId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+model Task{
+  id Int @id @default(autoincrement())
+  title String
+  description String?
+  status String?
+  priority String?
+  tags String?
+  startDate DateTime?
+dueDate DateTime?
+points Int?
+projectId Int
+authorUserId Int //user that created the task
+assignedUserId Int? //user that was assigned the task
+
+// relational tables
+project Project @relation(fields: [projectId], references: [id])
+author User @relation("TaskAuthor", fields: [authorUserId], references: [userId])
+assignee User? @relation("TaskAssignee", fields: [assignedUserId], references: [userId])
+taskAssignment TaskAssignment[] //how many users were assigned this task... returns rows from TaskAssignnment table
+attachments Attachment[]
+comments Comment[]
+}
+
+// junction table for the users and the tasks
+model TaskAssignment{
+  id Int @id @default(autoincrement())
+  userId Int // user assigned a task
+  taskId Int // task assigned to that user
+
+  // relational tables
+user User @relation(fields: [userId], references: [userId])
+task Task @relation(fields: [taskId], references: [id])
+}
+
+model Attachment{
+  id Int @id @default(autoincrement())
+  fileUrl String
+  fileName String
+  taskId Int
+  uploadedById Int
+
+  // relational tables
+  task Task @relation(fields: [taskId], references: [id])
+  uploadedBy User @relation(fields: [uploadedById], references: [userId])
+}
+
+model Comment{
+  id Int @id @default(autoincrement())
+  text String
+  taskId Int // task that this comment belongs to.
+  userId Int // user that wrote this comment.
+
+  // relational tables
+  task Task @relation(fields: [taskId], references: [id])
+  user User @relation(fields: [userId], references: [userId])
+
+}
