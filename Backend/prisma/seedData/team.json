@@ -1,0 +1,27 @@
+[
+  {
+    "teamName": "Quantum Innovations",
+    "productOwnerUserId": 1,
+    "projectManagerId": 2
+  },
+  {
+    "teamName": "Nebula Research",
+    "productOwnerUserId": 3,
+    "projectManagerId": 4
+  },
+  {
+    "teamName": "Orion Solutions",
+    "productOwnerUserId": 5,
+    "projectManagerId": 6
+  },
+  {
+    "teamName": "Krypton Developments",
+    "productOwnerUserId": 7,
+    "projectManagerId": 8
+  },
+  {
+    "teamName": "Zenith Technologies",
+    "productOwnerUserId": 9,
+    "projectManagerId": 10
+  }
+]

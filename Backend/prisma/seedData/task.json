@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Task 1",
+    "description": "Design the main module.",
+    "status": "Work In Progress",
+    "priority": "Urgent",
+    "tags": "Design",
+    "startDate": "2023-01-10T00:00:00Z",
+    "dueDate": "2023-04-10T00:00:00Z",
+    "projectId": 1,
+    "authorUserId": 1,
+    "assignedUserId": 2
+  },
+  {
+    "title": "Task 2",
+    "description": "Implement the navigation algorithm.",
+    "status": "To Do",
+    "priority": "High",
+    "tags": "Coding",
+    "startDate": "2023-01-15T00:00:00Z",
+    "dueDate": "2023-05-15T00:00:00Z",
+    "projectId": 2,
+    "authorUserId": 3,
+    "assignedUserId": 4
+  },
+  {
+    "title": "Task 3",
+    "description": "Research renewable energy solutions.",
+    "status": "In Progress",
+    "priority": "Medium",
+    "tags": "Research",
+    "startDate": "2023-03-01T00:00:00Z",
+    "dueDate": "2023-06-01T00:00:00Z",
+    "projectId": 3,
+    "authorUserId": 5,
+    "assignedUserId": 6
+  },
+  {
+    "title": "Task 4",
+    "description": "Update software development workflow.",
+    "status": "To Do",
+    "priority": "High",
+    "tags": "Documentation",
+    "startDate": "2023-02-01T00:00:00Z",
+    "dueDate": "2023-05-01T00:00:00Z",
+    "projectId": 4,
+    "authorUserId": 7,
+    "assignedUserId": 8
+  }
+]

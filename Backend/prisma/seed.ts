@@ -1,8 +1,19 @@
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-const prisma = new PrismaClient();
+
+console.log(process.env.DATABASE_URL);
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL!,
+});
+
+const prisma = new PrismaClient({
+  adapter,
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,14 +39,14 @@ async function main() {
   const dataDirectory = path.join(__dirname, "seedData");
 
   const orderedFileNames = [
-    "team.json",
-    "project.json",
-    "projectTeam.json",
-    "user.json",
-    "task.json",
-    "attachment.json",
-    "comment.json",
-    "taskAssignment.json",
+    "user.json", // no dependencies
+    "team.json", // references users (optional owners)
+    "project.json", // no dependencies
+    "projectTeam.json", // needs team + project
+    "task.json", // needs project + user
+    "taskAssignment.json", // needs user + task
+    "attachment.json", // needs task + user
+    "comment.json", // needs task + user
   ];
 
   await deleteAllData(orderedFileNames);

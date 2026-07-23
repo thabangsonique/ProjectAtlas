@@ -1,0 +1,26 @@
+[
+  {
+    "fileUrl": "i1.jpg",
+    "fileName": "DesignDoc.pdf",
+    "taskId": 1,
+    "uploadedById": 1
+  },
+  {
+    "fileUrl": "i2.jpg",
+    "fileName": "NavAlgorithm.pdf",
+    "taskId": 2,
+    "uploadedById": 2
+  },
+  {
+    "fileUrl": "i3.jpg",
+    "fileName": "EnergySolutions.pdf",
+    "taskId": 3,
+    "uploadedById": 3
+  },
+  {
+    "fileUrl": "i4.jpg",
+    "fileName": "SoftwareWorkflow.pdf",
+    "taskId": 4,
+    "uploadedById": 4
+  }
+]
