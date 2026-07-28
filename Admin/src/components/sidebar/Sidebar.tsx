@@ -21,11 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../app/store";
 import { setSidebarCollapsed } from "../../features/globalSlice";
 import { useState } from "react";
+import { useGetProjectsQuery } from "../../features/api";
 
 export default function Sidebar() {
   // local states
   const [showProjects, setShowProjects] = useState(false);
   const [showPriority, setShowPriority] = useState(false);
+  const { data: projects } = useGetProjectsQuery();
 
   //import sidebar collapsed value from the state.
   const sidebarCollapsed = useSelector(
@@ -34,7 +36,7 @@ export default function Sidebar() {
 
   const dispatch = useDispatch();
 
-  const sidebarClasses = `fixed flex flex-col justify-between h-[100%] bg-white dark:bg-black shadow-lg overflow-y-auto z-40 transition-all duration-300
+  const sidebarClasses = `fixed flex flex-col hide-scrollbar justify-between h-[100%] bg-white dark:bg-black shadow-lg overflow-y-auto z-40 transition-all duration-300
   ${sidebarCollapsed ? "w-0" : "w-64"} `;
   return (
     <div className={sidebarClasses}>
@@ -92,6 +94,20 @@ export default function Sidebar() {
             <ChevronDown className="w-5 h-5" />
           )}
         </button>
+        {/* project items */}
+        <div
+          className={`transition-all duration-300 ease-in-out ${showProjects ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+        >
+          {showProjects &&
+            projects?.map((project) => (
+              <SideBarLinks
+                key={project.id}
+                icon={Briefcase}
+                label={project.name}
+                href={`/projects/${project.id}`}
+              />
+            ))}
+        </div>
 
         {/* PRIORITIES LINKS SECTION */}
         <button
@@ -107,7 +123,7 @@ export default function Sidebar() {
           )}
         </button>
 
-        {/* project items */}
+        {/* priority items */}
         <div
           className={`transition-all duration-300 ease-in-out  ${showPriority ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
         >
@@ -116,14 +132,18 @@ export default function Sidebar() {
             label="Urgent"
             href="/priority/urgent"
           />
-          <SideBarLinks icon={ShieldAlert} label="Home" href="/priority/high" />
+          <SideBarLinks icon={ShieldAlert} label="High" href="/priority/high" />
           <SideBarLinks
             icon={AlertTriangle}
-            label="Home"
+            label="Medium"
             href="/priority/medium"
           />
-          <SideBarLinks icon={AlertOctagon} label="Home" href="/priority/low" />
-          <SideBarLinks icon={Layers3} label="Home" href="/priority/backlog" />
+          <SideBarLinks icon={AlertOctagon} label="Low" href="/priority/low" />
+          <SideBarLinks
+            icon={Layers3}
+            label="Backlog"
+            href="/priority/backlog"
+          />
         </div>
       </div>
 

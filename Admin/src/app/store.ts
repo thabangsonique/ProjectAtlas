@@ -24,6 +24,7 @@ import { globalSlice } from "../features/globalSlice";
 // Combine all reducers
 const rootReducer = combineReducers({
   global: globalSlice.reducer,
+  [api.reducerPath]: api.reducer,
   // counter: counterReducer,
   // auth: authReducer,
   // cart: cartReducer,
@@ -54,7 +55,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(api.middleware),
 });
 
 // Create the persistor

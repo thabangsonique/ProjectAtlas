@@ -36,3 +36,11 @@ body,
   --color-primary: #0275ff;
   --color-stroke-dark: #2d3135;
 }
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

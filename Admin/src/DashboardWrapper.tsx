@@ -3,12 +3,9 @@ import Navbar from "./components/navbar/Navbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../src/app/store";
+import { Outlet } from "react-router-dom";
 
-export default function DashboardWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardWrapper() {
   const sidebarCollapsed = useSelector(
     (state: RootState) => state.global.sidebarCollapsed,
   );
@@ -29,7 +26,8 @@ export default function DashboardWrapper({
       >
         {/* Navbar */}
         <Navbar />
-        {children}
+        {/* main content rendar */}
+        <Outlet />
       </main>
     </div>
   );

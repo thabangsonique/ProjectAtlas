@@ -6,7 +6,7 @@ import {
 
 //types for projects data
 export interface Project {
-  id: Number;
+  id: number;
   name: string;
   description?: string;
   startDate?: string;
@@ -48,7 +48,7 @@ export interface Task {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.PUBLIC_API_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_BASE_URL }),
   reducerPath: "api",
   tagTypes: ["Projects", "Tasks"] as const,
   endpoints: (build) => ({
