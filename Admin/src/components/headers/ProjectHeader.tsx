@@ -1,6 +1,15 @@
 import React from "react";
 import GlobalHeader from "./GlobalHeader";
-import { Clock, Grid, List, Table, type LucideIcon } from "lucide-react";
+import {
+  Clock,
+  Filter,
+  Grid,
+  List,
+  Share,
+  Share2,
+  Table,
+  type LucideIcon,
+} from "lucide-react";
 
 type Props = {
   activeTab: string;
@@ -15,7 +24,7 @@ export default function ProjectHeader({ activeTab, setActiveTab }: Props) {
       </div>
 
       {/* tab buttons */}
-      <div className="flex items-center justify-between w-full border-y dark:border-gray-400 border-gray-300">
+      <div className="flex items-center py-4 justify-between w-full border-y dark:border-gray-400 border-gray-300">
         {/* left-side */}
         <div className="flex ml-4 gap-6">
           <TabButton
@@ -44,6 +53,22 @@ export default function ProjectHeader({ activeTab, setActiveTab }: Props) {
           />
         </div>
         {/* right-side */}
+        <div className="flex items-center gap-4">
+          <button>
+            <Filter className="h-5 w-5 dark:text-gray-500 text-gray-900" />
+          </button>
+          <button>
+            <Share2 className="h-5 w-5 dark:text-gray-500 text-gray-900" />
+          </button>
+          {/* search bar */}
+          <div className="flex items-center rounded-lg bg-gray-500/10 py-2 px-2 gap-3  focus-within:ring-blue-500/30 focus-within:ring-2">
+            <Grid className="h-4 w-4 dark:text-gray-500" />
+            <input
+              placeholder="Search Task"
+              className="text-white placeholder:dark:text-gray-500 placeholder:font-medium w-full border-none focus:outline-none"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

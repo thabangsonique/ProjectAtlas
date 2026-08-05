@@ -23,7 +23,7 @@ export const Status = {
 export type Status = (typeof Status)[keyof typeof Status];
 
 export const Priority = {
-  Urgent: "Urgenty",
+  Urgent: "Urgent",
   High: "High",
   Medium: "Medium",
   Low: "Low",
@@ -31,6 +31,31 @@ export const Priority = {
 } as const;
 
 export type Priority = (typeof Priority)[keyof typeof Priority];
+
+type Comments = {
+  id: number;
+  text: string;
+};
+
+type Attachments = {
+  id: number;
+  fileUrl: string;
+  fileName: string;
+  taskId: number;
+  uploadedbyId: number;
+};
+
+type Assignee = {
+  userId: number;
+  profilePictureUrl?: string;
+  username: string;
+};
+
+type Author = {
+  userId: number;
+  profilePictureUrl?: string;
+  username: string;
+};
 //types for the tasks
 export interface Task {
   id: number;
@@ -45,6 +70,11 @@ export interface Task {
   projectId: number;
   authorUserId?: number;
   assignedUserId?: number;
+
+  comments?: Comments[];
+  attachments?: Attachments[];
+  assignee?: Assignee;
+  author?: Author;
 }
 
 export const api = createApi({
@@ -104,4 +134,5 @@ export const {
   useGetTasksQuery,
   useCreateProjectMutation,
   useCreateTaskMutation,
+  useUpdateTasksMutation,
 } = api;
